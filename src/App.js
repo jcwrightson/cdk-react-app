@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useStore } from "./store";
+import { counterStore } from "./stores";
 
-function App() {
+const App = () => {
+  const { state, dispatch } = useStore(counterStore);
+
+  // const getData = async () => {
+  //   const res = await fetch(
+  //     "https://lgi3phzhyg.execute-api.eu-west-1.amazonaws.com/"
+  //   );
+
+  //   return res.json();
+  // };
+
+  // useEffect(() => {
+  //   const fetchAction = async (state, update) => {
+  //     const data = await getData();
+  //     update("records", data);
+  //   };
+  //   dispatch(fetchAction);
+  // }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{state.counter}</h1>
+      <button
+        onClick={() => {
+          dispatch((state, update) => update("counter", state.counter + 1));
+        }}
+      >
+        Increment
+      </button>
+      <button
+        onClick={() => {
+          dispatch((state, update) => update("counter", state.counter - 1));
+        }}
+      >
+        Decrement
+      </button>
     </div>
   );
-}
+};
 
 export default App;
