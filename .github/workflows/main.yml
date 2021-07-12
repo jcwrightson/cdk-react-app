@@ -22,5 +22,6 @@ jobs:
       - run: npm i
       - run: npm run build
       - run: cd stack
+      - run: ls
       - run: npm i
-      - run: npx cdk deploy --require-approval never
+      - run: npx cdk deploy --require-approval never --app cdk.json
