@@ -5,25 +5,17 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Clean install dependencies and build
+      - name: Clean install app dependencies and build
         run: |
           npm ci
           npm run build
-  deploy:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
+      - name: Clean install stack dependencies
         working-directory: ./stack
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Clean install dependencies
         run: npm ci
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -35,4 +27,5 @@ jobs:
           role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
           role-duration-seconds: 1200
       - name: CDK Deploy
+        working-directory: ./stack
         run: npx cdk deploy --require-approval never
