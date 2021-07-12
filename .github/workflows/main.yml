@@ -14,6 +14,10 @@ jobs:
           npm run build
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./stack
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -26,6 +30,6 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
           role-duration-seconds: 1200
-        working-directory: ./stack
-        - run: npm ci
-        - run: npx cdk deploy --require-approval never
+        run: |
+          npm ci
+          npx cdk deploy --require-approval never
