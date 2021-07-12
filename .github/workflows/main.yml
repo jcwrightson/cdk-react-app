@@ -8,8 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Build
-      - run: |
+      - name: Clean install dependencies and build
+        run: |
           npm ci
           npm run build
   deploy:
@@ -26,7 +26,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
           role-duration-seconds: 1200
-      - run: |
+        run: |
           npm i
           npx cdk deploy --require-approval never
-      - working-directory: ./stack
+        working-directory: ./stack
