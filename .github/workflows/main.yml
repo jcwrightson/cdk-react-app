@@ -5,6 +5,13 @@ on:
       - main
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+      - run: |
+          npm ci
+          npm run build
   deploy:
     runs-on: ubuntu-latest
     steps:
@@ -19,9 +26,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
           role-duration-seconds: 1200
-      - run: npm i
-      - run: npm run build
-      - run: cd stack
-      - run: ls
-      - run: npm i
-      - run: npx cdk deploy --require-approval never --app cdk.json
+      - run: |
+          npm i
+          npx cdk deploy --require-approval never
+      - working-directory: ./stack
