@@ -1,6 +1,7 @@
 import * as cdk from "@aws-cdk/core";
 import * as s3 from "@aws-cdk/aws-s3";
 import * as s3Deployment from "@aws-cdk/aws-s3-deployment";
+import * as iam from "@aws-cdk/aws-iam";
 
 export class CdkStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -12,14 +13,18 @@ export class CdkStack extends cdk.Stack {
       websiteIndexDocument: "index.html",
     });
 
-    new s3Deployment.BucketDeployment(
+    new s3Deployment.BucketDeployment(this, "iw-react-app-hosting-deployment", {
+      sources: [s3Deployment.Source.asset("../build")],
+      destinationBucket: bucket,
+    });
+
+    const boundary = iam.ManagedPolicy.fromManagedPolicyArn(
       this,
-      "iw-react-app-hosting-deployment",
-      {
-        sources: [s3Deployment.Source.asset("../build")],
-        destinationBucket: bucket,
-      }
+      "Boundary",
+      `arn:aws:iam::${process.env.AWS_ACCOUNT}:policy/ScopePermissions`
     );
+
+    iam.PermissionsBoundary.of(this).apply(boundary);
 
     new cdk.CfnOutput(this, "Bucket URL", {
       value: bucket.bucketDomainName,
