@@ -9,7 +9,7 @@ export class ReactStack extends cdk.Stack {
     super(scope, id, props);
 
     const bucket = new s3.Bucket(this, "iw-react-app-hosting", {
-      publicReadAccess: true,
+      publicReadAccess: false,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       websiteIndexDocument: "index.html",
     });
