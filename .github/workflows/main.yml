@@ -17,7 +17,7 @@ jobs:
           npm ci
           npm run build
       - name: Clean install stack dependencies
-        working-directory: ./stack
+        working-directory: ./cdk
         run: npm ci
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -29,5 +29,5 @@ jobs:
           role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
           role-duration-seconds: 1200
       - name: CDK Deploy
-        working-directory: ./stack
+        working-directory: ./cdk
         run: npx cdk deploy --require-approval never

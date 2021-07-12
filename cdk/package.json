@@ -1,8 +1,8 @@
 {
-  "name": "cdk",
+  "name": "new_stack",
   "version": "0.1.0",
   "bin": {
-    "cdk": "./bin/cdk.js"
+    "new_stack": "bin/new_stack.js"
   },
   "scripts": {
     "build": "tsc",
@@ -22,8 +22,8 @@
   },
   "dependencies": {
     "@aws-cdk/aws-iam": "^1.112.0",
-    "@aws-cdk/aws-s3": "^1.111.0",
-    "@aws-cdk/aws-s3-deployment": "^1.111.0",
+    "@aws-cdk/aws-s3": "^1.112.0",
+    "@aws-cdk/aws-s3-deployment": "^1.112.0",
     "@aws-cdk/core": "1.111.0",
     "source-map-support": "^0.5.16"
   }
