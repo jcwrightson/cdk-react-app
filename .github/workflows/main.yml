@@ -31,4 +31,4 @@ jobs:
           role-duration-seconds: 1200
       - name: CDK Deploy
         working-directory: ./cdk
-        run: npx cdk deploy --require-approval never
+        run: npx cdk deploy StaticReactApp --require-approval never
