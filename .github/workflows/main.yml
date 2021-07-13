@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
+      VPN_IP_BLOCK: ${{ secrets.VPN_IP_BLOCK }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
