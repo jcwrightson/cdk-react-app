@@ -29,6 +29,9 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
           role-duration-seconds: 1200
-      - name: CDK Deploy
+      - name: CDK Deploy WAF stack
+        working-directory: ./cdk
+        run: npx cdk deploy WafStack --require-approval never
+      - name: CDK Deploy App
         working-directory: ./cdk
         run: npx cdk deploy StaticReactApp --require-approval never
