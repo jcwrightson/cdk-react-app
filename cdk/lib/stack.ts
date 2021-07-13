@@ -25,7 +25,7 @@ export class ReactStack extends cdk.Stack {
     // 3. Limit cloudFront distribution to VPN
     const vpn_ip_set = new waf.CfnIPSet(this, "vpn-ip-set", {
       addresses: [process.env.VPN_IP_BLOCK ?? "0.0.0.0/0"],
-      ipAddressVersion: "IPv4",
+      ipAddressVersion: "IPV4",
       name: "vpnIPSet",
       scope: "CLOUDFRONT",
     });
